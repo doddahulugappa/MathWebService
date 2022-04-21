@@ -12,12 +12,12 @@
 
 [Open & Explore all API end points](http://localhost:8000/docs)
 
-## Serverless FastAPI with AWS Lambda
+# Serverless FastAPI with AWS Lambda
 ```
 pip install mangum
 ```
 
-- Setup AWS Resources
+## Setup AWS Resources
 - Create S3 Bucket
 - Upload Zip File
 - Package Lambda
