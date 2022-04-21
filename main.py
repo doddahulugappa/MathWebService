@@ -21,7 +21,7 @@ async def get_factorial_of_given_number(n:int):
     """
     factorial = reduce(lambda x, y: x * y, range(1,n+1)) #starts multiply by 1 to till N and saves cumulative product
 
-    return {"Th Factorial of "+str(n):factorial}
+    return {"Factorial of "+str(n):factorial}
 
 def ackermann(m, n):
     """
@@ -40,4 +40,4 @@ def ackermann(m, n):
 @app.get("/ackermann/")
 async def solve_ackermann(m:int = 0, n:int =1):
 
-    return {"Th Ackermann Solution":ackermann(m, n)}
+    return {"Ackermann Solution":ackermann(m, n)}
