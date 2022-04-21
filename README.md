@@ -10,6 +10,8 @@
 
 `pip install -r requirements.txt`
 
+`pytest test_main.py`
+
 `uvicorn main:app --reload`
 
 [Open & Explore all API end points](http://localhost:8000/docs)
