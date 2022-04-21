@@ -5,19 +5,23 @@ from fastapi import FastAPI
 app = FastAPI()
 
 @app.get("/fibonacci/{n}")
-async def get_nth_fibonacci(n:int):
-    a,b=0,1 #initial fibonacci numbers
+async def get_nth_fibonacci_number(n:int):
+    """
+    returns nth fibonacci number
+    """
+    a,b=0,1 #initial first fibonacci numbers
     for i in range(n):
         a,b = b,a+b
     return {str(n)+"Th Fibonacci Number":a}
 
 @app.get("/factorial/{n}")
-async def get_factorial(n:int):
-    factorial = reduce(lambda x, y: x * y, range(1,n+1))
+async def get_factorial_of_given_number(n:int):
+    """
+    returns factorial of a given number
+    """
+    factorial = reduce(lambda x, y: x * y, range(1,n+1)) #starts multiply by 1 to till N and saves cumulative product
 
     return {"Th Factorial of "+str(n):factorial}
-
-
 
 def ackermann(m, n):
     """
