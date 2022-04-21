@@ -20,6 +20,12 @@ async def get_factorial(n:int):
 
 
 def ackermann(m, n):
+    """
+    Ackermann solution
+    :param m:
+    :param n:
+    :return: solution
+    """
     if m == 0:
         return (n + 1)
     elif n == 0:
