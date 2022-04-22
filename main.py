@@ -9,6 +9,8 @@ async def get_nth_fibonacci_number(n:int):
     """
     returns nth fibonacci number
     """
+    if n < 0:
+        return {"Message":"Invalid Input"}
     a,b=0,1 #initial first fibonacci numbers
     for i in range(n):
         a,b = b,a+b
@@ -19,9 +21,15 @@ async def get_factorial_of_given_number(n:int):
     """
     returns factorial of a given number
     """
-    factorial = reduce(lambda x, y: x * y, range(1,n+1)) #starts multiply by 1 to till N and saves cumulative product
+    if n < 0:
+        return {"Message":"Invalid Input"}
 
-    return {"Factorial of "+str(n):factorial}
+    if n == 0 or n == 1:
+        factorial = 1
+    else:
+        factorial = reduce(lambda x, y: x * y, range(1,n+1)) #starts multiply by 1 to till N and saves cumulative product
+    message = {"Factorial of " + str(n): factorial}
+    return message
 
 def ackermann(m, n):
     """
