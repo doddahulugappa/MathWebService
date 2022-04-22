@@ -1,9 +1,7 @@
 from functools import reduce
-
 from fastapi import FastAPI
 
 app = FastAPI()
-
 
 def ordinal(value):
     """
@@ -23,6 +21,7 @@ def ordinal(value):
         ordval = u"%d%s" % (value, "th")
 
     return ordval
+
 @app.get("/fibonacci/{n}")
 async def get_nth_fibonacci_number(n:int):
     """
@@ -68,6 +67,9 @@ def ackermann(m, n):
         return ackermann(m - 1, ackermann(m, n - 1))
 
 @app.get("/ackermann/")
-async def solve_ackermann(m:int = 0, n:int =1):
-    solution = ackermann(m, n)
+async def solve_ackermann(m:int = 0, n:int = 1):
+    try:
+        solution = ackermann(m, n)
+    except Exception as e:
+        solution = "Maximum recursive call reached, Try M smaller number"
     return {"Ackermann Solution":solution}
