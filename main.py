@@ -1,22 +1,46 @@
 from functools import reduce
 from fastapi import FastAPI
 
+import logging
+import logging.handlers as handlers
+
+import timeit
+
+logger = logging.getLogger('main_app')
+logger.setLevel(logging.INFO)
+
+# Here we define our formatter
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+logHandler = handlers.RotatingFileHandler('api_app.log', maxBytes=10*1024,  backupCount=2)
+logHandler.setLevel(logging.INFO)
+
+# Here we set our logHandler's formatter
+logHandler.setFormatter(formatter)
+logger.addHandler(logHandler)
+
 app = FastAPI()
 
 
-@app.get("/fibonacci/{n}")
-async def get_nth_fibonacci_number(n: int):
+@app.get("/fibonacci/{number}")
+async def get_nth_fibonacci_number(number: int):
     """
     returns nth fibonacci number
     """
-    if n < 0:
+    start = timeit.default_timer()
+    if number < 0:
         return {"Message": "Invalid Input"}
     a, b = 0, 1  # Initial first fibonacci numbers
-    for i in range(n):
+    for i in range(number):
         a, b = b, a+b
-
-    ord_value = ordinal(n)  # get the ordinal of number
-    message = {ord_value+" Fibonacci Number": a}
+    fibonacci_no = a
+    stop = timeit.default_timer()
+    logger.info(get_nth_fibonacci_number.__name__+" Called")
+    logger.info("Input: " + str(number))
+    logger.info("Output:" + str(fibonacci_no))
+    logger.info("Time Taken(in seconds):" + str(stop - start))
+    ord_value = ordinal(number)  # get the ordinal of number
+    message = {ord_value+" Fibonacci Number": fibonacci_no}
     return message
 
 
