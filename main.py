@@ -34,7 +34,7 @@ async def get_nth_fibonacci_number(n:int):
     for i in range(n):
         a,b = b,a+b
 
-    ord_value = ordinal(n)
+    ord_value = ordinal(n) #get the ordinality of number
     message = {ord_value+" Fibonacci Number":a}
     return message
 
