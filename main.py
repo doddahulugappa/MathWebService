@@ -4,6 +4,25 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
+
+def ordinal(value):
+    """
+    input: takes number
+    return: ordinal_number
+    """
+    if value % 100//10 != 1:
+        if value % 10 == 1:
+            ordval = u"%d%s" % (value, "st")
+        elif value % 10 == 2:
+            ordval = u"%d%s" % (value, "nd")
+        elif value % 10 == 3:
+            ordval = u"%d%s" % (value, "rd")
+        else:
+            ordval = u"%d%s" % (value, "th")
+    else:
+        ordval = u"%d%s" % (value, "th")
+
+    return ordval
 @app.get("/fibonacci/{n}")
 async def get_nth_fibonacci_number(n:int):
     """
@@ -14,7 +33,10 @@ async def get_nth_fibonacci_number(n:int):
     a,b=0,1 #initial first fibonacci numbers
     for i in range(n):
         a,b = b,a+b
-    return {str(n)+"Th Fibonacci Number":a}
+
+    ord_value = ordinal(n)
+    message = {ord_value+" Fibonacci Number":a}
+    return message
 
 @app.get("/factorial/{n}")
 async def get_factorial_of_given_number(n:int):
@@ -47,5 +69,5 @@ def ackermann(m, n):
 
 @app.get("/ackermann/")
 async def solve_ackermann(m:int = 0, n:int =1):
-
-    return {"Ackermann Solution":ackermann(m, n)}
+    solution = ackermann(m, n)
+    return {"Ackermann Solution":solution}
