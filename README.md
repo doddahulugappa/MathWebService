@@ -10,6 +10,8 @@
 
 `pip install -r requirements.txt`
 
+`cd app`
+
 `pytest test_main.py`
 
 `uvicorn main:app --reload`
@@ -37,6 +39,8 @@ pip install mangum
 
 # Docker
 ## Build Docker image
+`cd MathWebService`
+
 `docker build -t mathwebservice .` 
 ## Run Docker Image
 `docker run -it -p 8000:8000 mathwebservice`
