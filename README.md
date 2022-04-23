@@ -34,3 +34,10 @@ pip install mangum
 - Create Root Proxy Method
 - Create Resource
 - Deploy Lambda Proxy API
+
+# Docker
+## Build Docker image
+`docker build -t mathwebservice .` 
+## Run Docker Image
+`docker run -it -p 8000:8000 mathwebservice`
+
