@@ -14,7 +14,7 @@
 
 `uvicorn main:app --reload`
 
-[Open & Explore all API end points](http://localhost:8000/docs)
+[Click here to explore all API endpoints](http://localhost:8000/docs)
 
 # Serverless FastAPI with AWS Lambda
 ```
