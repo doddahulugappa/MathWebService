@@ -12,9 +12,9 @@
 
 `cd app`
 
-`pytest test_main.py`
+execute `pytest test_main.py` to test the API
 
-`uvicorn main:app --reload`
+execute `uvicorn main:app --reload` to run the API
 
 [Click here to explore all API endpoints](http://localhost:8000/docs)
 
