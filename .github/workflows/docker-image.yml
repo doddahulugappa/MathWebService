@@ -7,21 +7,14 @@ on:
     branches: [ main ]
 
 env:
-  IMAGE_NAME: doddahulugappa/fastapi
+  IMAGE_NAME: doddahulugappa/mathwebservice
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
   build:
-    name: Build Container
-
-    runs-on: ubuntu-18.04
-
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-
-      - name: Build image and publish to registry
-        run: |
-          docker build -t $IMAGE_NAME:latest .
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
-          docker push $IMAGE_NAME:latest
+      - name: Login to DockerHub Registry
+        run: echo $DOCKER_USER | docker login -u $DOCKER_PASSWORD --password-stdin
