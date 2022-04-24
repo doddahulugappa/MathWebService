@@ -10,11 +10,9 @@
 
 `pip install -r requirements.txt`
 
-`cd app`
+execute `pytest` to test the API
 
-execute `pytest test_main.py` to test the API
-
-execute `uvicorn main:app --reload` to run the API
+execute `uvicorn app.main:app --reload` to run the API
 
 [Click here to explore all API endpoints](http://localhost:8000/docs)
 
@@ -41,7 +39,7 @@ pip install mangum
 ## Build Docker image
 `cd MathWebService`
 
-`docker build -t mathwebservice .` 
+`docker build -t mathwebservice .`
 ## Run Docker Image
 `docker run -it -p 8000:8000 mathwebservice`
 
