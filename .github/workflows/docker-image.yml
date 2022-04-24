@@ -9,12 +9,19 @@ on:
 env:
   IMAGE_NAME: doddahulugappa/mathwebservice
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
-  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Build Container
+
+    runs-on: ubuntu-18.04
+
     steps:
       - uses: actions/checkout@v1
-      - name: Login to DockerHub Registry
-        run: echo $DOCKER_USER | docker login -u $DOCKER_PASSWORD --password-stdin
+
+      - name: Build image and publish to registry
+        run: |
+          docker build -t $IMAGE_NAME:latest .
+          echo $DOCKERHUB_TOKEN | docker login -u $DOCKER_USER --password-stdin
+          docker push $IMAGE_NAME:latest
