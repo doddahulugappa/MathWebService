@@ -3,6 +3,7 @@ from app.main import app, ordinal
 
 client = TestClient(app)
 
+
 def test_fibonacci():
     number = 4
     ord_value = ordinal(number)
@@ -35,6 +36,7 @@ def test_ackermann():
     response = client.get("/ackermann/?m=0&n=1")
     assert response.status_code == 200
     assert response.json() == {"Ackermann Solution": 2}
+
 
 def test_root():
     response = client.get("/")
