@@ -5,8 +5,16 @@
 - Factorial of a given Number
 - Ackermann Function
 
+## Requirements
+
+* Python >= 3.6 (tested under Python 3.9.6)
+
 ## Setting up project
 `cd MathWebService`
+
+`python -m venv venv` optional
+
+`venv\Scripts\activate` optional
 
 `pip install -r requirements.txt`
 
