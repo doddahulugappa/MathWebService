@@ -7,29 +7,39 @@
 
 ## Requirements
 
-* Python >= 3.6 (tested under Python 3.9.6)
+* Python >= 3.6 (tested under Python 3.9.6 & 3.10.4)
 
 ## Setting up project
-`cd MathWebService`
+ - Unzip the file
 
-`python -m venv venv` optional
+ - Open the cmd
 
-`venv\Scripts\activate` optional
+ - `cd Python-assessment-DB-04-25-2022)`(to unzipped folder)
 
-`pip install -r requirements.txt`
+ - `cd MathWebService`(to project folder)
+### Create Virtual env and activate
+ - `python -m venv venv` optional (to create virtualenv)
 
-execute `pytest` to test the API
+ - `venv\Scripts\activate` optional (to activate virtualenv)
 
-execute `uvicorn app.main:app --reload` to run the API
+### Install libraries 
+ - `pip install -r requirements.txt`
 
-[Click here to explore all API endpoints](http://localhost:8000/docs)
+### Execute tests
+ - execute `pytest` to test the API
 
-# Serverless FastAPI with AWS Lambda
+### Run webserver
+ - execute `uvicorn app.main:app --reload` to run the API
+
+### Open the below url
+ - [Click here to explore all API endpoints](http://localhost:8000/docs)
+
+## Serverless FastAPI with AWS Lambda
 ```
 pip install mangum
 ```
 
-## Setup AWS Resources
+### Setup AWS Resources
 - Create S3 Bucket
 - Upload Zip File
 - Package Lambda
@@ -43,12 +53,12 @@ pip install mangum
 - Create Resource
 - Deploy Lambda Proxy API
 
-# Docker
-## Build Docker image
+## Docker
+### Build Docker image
 `cd MathWebService`
 
 `docker build -t mathwebservice .`
-## Run Docker Image
+### Run Docker Image
 `docker run -it -p 8000:8000 mathwebservice`
 
 
