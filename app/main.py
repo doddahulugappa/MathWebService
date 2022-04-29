@@ -1,12 +1,17 @@
 import os
 from functools import reduce
-from fastapi import FastAPI
+from fastapi import FastAPI, Body, Depends
 from fastapi.responses import JSONResponse
 
 import logging
 import logging.handlers as handlers
 
 import timeit
+
+from app.model import UserSchema, UserLoginSchema
+from app.auth.auth_bearer import JWTBearer
+from app.auth.auth_handler import sign_jwt
+from app.database.dboperation import connect_db, close_db_conn
 
 logger = logging.getLogger('main_app')
 logger.setLevel(logging.INFO)
@@ -24,7 +29,7 @@ logger.addHandler(logHandler)
 app = FastAPI()
 
 
-@app.get("/fibonacci/{number}")
+@app.get("/fibonacci/{number}", dependencies=[Depends(JWTBearer())], tags=["maths"])
 async def get_nth_fibonacci_number(number: int):
     """
     returns nth fibonacci number
@@ -48,7 +53,7 @@ async def get_nth_fibonacci_number(number: int):
     return JSONResponse(message)
 
 
-@app.get("/factorial/{number}")
+@app.get("/factorial/{number}", dependencies=[Depends(JWTBearer())], tags=["maths"])
 async def get_factorial_of_given_number(number: int):
     """
     returns factorial of a given number
@@ -75,7 +80,7 @@ async def get_factorial_of_given_number(number: int):
     return JSONResponse(message)
 
 
-@app.get("/ackermann/")
+@app.get("/ackermann/", dependencies=[Depends(JWTBearer())], tags=["maths"])
 async def solve_ackermann(m: int = 0, n: int = 1):
     """
     Ackermann solution
@@ -98,7 +103,7 @@ async def solve_ackermann(m: int = 0, n: int = 1):
     return JSONResponse(message)
 
 
-@app.get("/logs/")
+@app.get("/logs/", dependencies=[Depends(JWTBearer())], tags=["logs"])
 async def get_logs():
     log_list = []
     if os.path.exists(LOG_FILE):
@@ -152,3 +157,39 @@ def ordinal(value):
         ordinal_value = u"%d%s" % (value, "th")
 
     return ordinal_value
+
+
+def check_user(data: UserLoginSchema):
+    conn = connect_db()
+    cur = conn.cursor()
+    query = "select * from user"
+    cur.execute(query)
+    users = cur.fetchall()
+    close_db_conn(conn)
+    for user in users:
+        if user[2] == data.email and user[3] == data.password:
+            return True
+    return False
+
+
+@app.post("/user/signup", tags=["user"])
+async def create_user(user: UserSchema = Body(...)):
+    conn = connect_db()
+    cur = conn.cursor()
+    query = "select * from user"
+    cur.execute(query)
+    total_rec = len(cur.fetchall())
+    query = "insert into user values("+str(total_rec+1)+",'"+user.fullname+"','"+user.email+"','"+user.password+"')"
+    cur.execute(query)
+    conn.commit()
+    close_db_conn(conn)
+    return sign_jwt(user.email)
+
+
+@app.post("/user/login", tags=["user"])
+async def user_login(user: UserLoginSchema = Body(...)):
+    if check_user(user):
+        return sign_jwt(user.email)
+    return {
+        "error": "Wrong login details!"
+    }
