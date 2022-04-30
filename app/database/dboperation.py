@@ -19,7 +19,7 @@ def create_tables(conn):
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             fullname CHAR(50) NOT NULL,
             email CHAR(25),
-            password CHAR(50)
+            password CHAR(100)
              )"""
     cursor.execute(query)
 

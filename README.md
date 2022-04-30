@@ -62,3 +62,10 @@ pip install mangum
 `docker run -it -p 8000:8000 mathwebservice`
 
 
+## JWT Authentication
+`pip install PyJWT python-decouple`
+
+## User Registration and Login
+`pip install "pydantic[email]"`
+
+

@@ -2,6 +2,7 @@ import os
 from functools import reduce
 from fastapi import FastAPI, Body, Depends
 from fastapi.responses import JSONResponse
+import hashlib
 
 import logging
 import logging.handlers as handlers
@@ -166,8 +167,9 @@ def check_user(data: UserLoginSchema):
     cur.execute(query)
     users = cur.fetchall()
     close_db_conn(conn)
+    hashed_password = hashlib.sha256(data.password.encode('utf-8')).hexdigest()
     for user in users:
-        if user[2] == data.email and user[3] == data.password:
+        if user[2] == data.email and user[3] == hashed_password:
             return True
     return False
 
@@ -179,7 +181,8 @@ async def create_user(user: UserSchema = Body(...)):
     query = "select * from user"
     cur.execute(query)
     total_rec = len(cur.fetchall())
-    query = "insert into user values("+str(total_rec+1)+",'"+user.fullname+"','"+user.email+"','"+user.password+"')"
+    hashed_password = hashlib.sha256(user.password.encode('utf-8')).hexdigest()
+    query = "insert into user values("+str(total_rec+1)+",'"+user.fullname+"','"+user.email+"','"+hashed_password+"')"
     cur.execute(query)
     conn.commit()
     close_db_conn(conn)
