@@ -1,37 +1,71 @@
-## Welcome to GitHub Pages
+# MathWebService Rest API using FatAPI
 
-You can use the [editor on GitHub](https://github.com/doddahulugappa/MathWebService/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+## This API is designed to solve below maths problems
+- Nth Fibonacci Number
+- Factorial of a given Number
+- Ackermann Function
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Requirements
 
-### Markdown
+* Python >= 3.6 (tested under Python 3.9.6 & 3.10.4)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Setting up project
+ - Open the cmd
 
-```markdown
-Syntax highlighted code block
+ - `git clone https://github.com/doddahulugappa/MathWebService.git`
 
-# Header 1
-## Header 2
-### Header 3
+ - `cd MathWebService`(to project folder)
+### Create Virtual env and activate
+ - `python -m venv venv` optional (to create virtualenv)
 
-- Bulleted
-- List
+ - `venv\Scripts\activate` optional (to activate virtualenv)
 
-1. Numbered
-2. List
+### Install libraries 
+ - `pip install -r requirements.txt`
+ 
+### Create database and tables
+ - `python app\database\dboperation.py`
 
-**Bold** and _Italic_ and `Code` text
+### Execute tests
+ - execute `pytest` to test the API
 
-[Link](url) and ![Image](src)
+### Run webserver
+ - execute `uvicorn app.main:app --reload` to run the API
+
+### Open below url and exlpore
+ - http://\<HOST\>:\<PORT\>/docs
+
+## Serverless FastAPI with AWS Lambda
+```
+pip install mangum
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+### Setup AWS Resources
+- Create S3 Bucket
+- Upload Zip File
+- Package Lambda
+- Upload Zip File to S3
+- Create AWS Lambda
+- Update Handler
+- Test FastAPI Lambda
+- Create API Gateway
+- Choose the Protocol
+- Create Root Proxy Method
+- Create Resource
+- Deploy Lambda Proxy API
 
-### Jekyll Themes
+## Docker
+### Build Docker image
+`cd MathWebService`
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/doddahulugappa/MathWebService/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+`docker build -t mathwebservice .`
+### Run Docker Image
+`docker run -it -p 8000:8000 mathwebservice`
 
-### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+## Documentation
+This API is using basic authentication and jwt token authorization.
+Firstly we will have to signup to get the jwt token which is valid for 5 minutes
+and use the token as authorization to call other API endpoints. If already signed up,
+we just need to signin to get the jwt token.
+
