@@ -23,13 +23,13 @@ jobs:
 
       - name: Build image
         run: |
-          docker build -t $IMAGE_NAME:latest$(date +%s) .
+          docker build -t $IMAGE_NAME .
       - name: Docker Login
         run: |
           docker login -u doddahulugappa -p Huli123#
       - name: Docker tag
         run: |
-          docker tag $IMAGE_NAME:latest$(date +%s) doddahulugappa/fastapi:v$(date +%s)
+          docker tag $IMAGE_NAME doddahulugappa/fastapi:v$(date +%s)
       - name: Push Image
         run: |
           docker push doddahulugappa/fastapi:v$(date +%s)
