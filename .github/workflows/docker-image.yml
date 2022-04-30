@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  IMAGE_NAME: doddahulugappa/mathwebservice
+  IMAGE_NAME: mathwebservice
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
   DOCKERHUB_PWD: ${{ secrets.DOCKER_PASSWORD }}
@@ -27,6 +27,9 @@ jobs:
       - name: Docker Login
         run: |
           docker login -u doddahulugappa -p Huli123#
+      - name: Docker tag
+        run: |
+          docker tag $IMAGE_NAME:latest$(date +%s) doddahulugappa/fastapi:v$(date +%s)
       - name: Push Image
         run: |
-          docker push $IMAGE_NAME:latest$(date +%s)
+          docker push doddahulugappa/fastapi:v$(date +%s)
