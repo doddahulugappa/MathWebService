@@ -1,6 +1,6 @@
 # MathWebService Rest API using FatAPI
 
-## This API designed to solve below maths problems
+## This API is designed to solve below maths problems
 - Nth Fibonacci Number
 - Factorial of a given Number
 - Ackermann Function
@@ -10,11 +10,9 @@
 * Python >= 3.6 (tested under Python 3.9.6 & 3.10.4)
 
 ## Setting up project
- - Unzip the file
-
  - Open the cmd
 
- - `cd Python-assessment-DB-04-25-2022)`(to unzipped folder)
+ - `git clone https://github.com/doddahulugappa/MathWebService.git`
 
  - `cd MathWebService`(to project folder)
 ### Create Virtual env and activate
@@ -34,8 +32,8 @@
 ### Run webserver
  - execute `uvicorn app.main:app --reload` to run the API
 
-### Open the below url
- - [Click here to explore all API endpoints](http://localhost:8000/docs)
+### Open below url and exlpore
+ - http://\<HOST\>:\<PORT\>/docs
 
 ## Serverless FastAPI with AWS Lambda
 ```
@@ -65,10 +63,9 @@ pip install mangum
 `docker run -it -p 8000:8000 mathwebservice`
 
 
-## JWT Authentication
-`pip install PyJWT python-decouple`
-
-## User Registration and Login
-`pip install "pydantic[email]"`
-
+## Documentation
+This API is using basic authentication and jwt token authorization.
+Firstly we will have to signup to get the jwt token which is valid for 5 minutes
+and use the token as authorization to call other API endpoints. If already signed up,
+we just need to signin to get the jwt token.
 
