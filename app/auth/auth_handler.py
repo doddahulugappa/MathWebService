@@ -7,7 +7,7 @@ from typing import Dict
 
 import jwt
 from decouple import config
-
+from fastapi.responses import JSONResponse
 
 JWT_SECRET = config("secret")
 JWT_ALGORITHM = config("algorithm")
@@ -37,7 +37,8 @@ def sign_jwt(user_id: str) -> Dict[str, str]:
     cur.execute(query)
     conn.commit()
     close_db_conn(conn)
-    return token_response(token, int(payload["expires"]))
+    response = token_response(token, int(payload["expires"]))
+    return JSONResponse(response)
 
 
 def decode_jwt(token: str) -> dict:

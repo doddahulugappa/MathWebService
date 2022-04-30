@@ -193,6 +193,6 @@ async def create_user(user: UserSchema = Body(...)):
 async def user_login(user: UserLoginSchema = Body(...)):
     if check_user(user):
         return sign_jwt(user.email)
-    return {
+    return JSONResponse({
         "error": "Wrong login details!"
-    }
+    })
