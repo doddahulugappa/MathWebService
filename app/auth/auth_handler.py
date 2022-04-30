@@ -2,6 +2,7 @@
 from app.database.dboperation import connect_db, close_db_conn
 
 import time
+from datetime import datetime
 from typing import Dict
 
 import jwt
@@ -12,9 +13,10 @@ JWT_SECRET = config("secret")
 JWT_ALGORITHM = config("algorithm")
 
 
-def token_response(token: str):
+def token_response(token: str, expiry: int):
     return {
-        "access_token": token
+        "access_token": token,
+        "expiry": datetime.utcfromtimestamp(expiry).strftime('%Y-%m-%d %H:%M:%S %p')
     }
 
 
@@ -35,7 +37,7 @@ def sign_jwt(user_id: str) -> Dict[str, str]:
     cur.execute(query)
     conn.commit()
     close_db_conn(conn)
-    return token_response(token)
+    return token_response(token, int(payload["expires"]))
 
 
 def decode_jwt(token: str) -> dict:
