@@ -26,7 +26,7 @@ jobs:
           docker build -t $IMAGE_NAME:latest$(date +%s) .
       - name: Docker Login
         run: |
-          docker login -u $DOCKER_USER -p $DOCKERHUB_PWD
+          docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Push Image
         run: |
           docker push $IMAGE_NAME:latest$(date +%s)
