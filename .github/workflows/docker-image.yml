@@ -26,7 +26,7 @@ jobs:
           docker build -t $IMAGE_NAME .
       - name: Docker Login
         run: |
-          docker login -u doddahulugappa --password-stdin Huli123#
+          docker login -u doddahulugappa -p $DOCKERHUB_PWD
       - name: Docker tag
         run: |
           docker tag $IMAGE_NAME doddahulugappa/fastapi:v$(date +%s)
