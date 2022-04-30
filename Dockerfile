@@ -8,6 +8,10 @@ RUN pip install --no-cache-dir --upgrade -r /mathwebservice/requirements.txt
 
 COPY ./app /mathwebservice/app
 
+COPY .env /mathwebservice/.env
+
 COPY ./tests /mathwebservice/tests
+
+copy users.db /mathwebservice
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
