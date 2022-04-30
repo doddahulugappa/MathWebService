@@ -10,6 +10,7 @@ env:
   IMAGE_NAME: doddahulugappa/mathwebservice
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+  DOCKERHUB_PWD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
   build:
@@ -20,8 +21,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Build image and publish to registry
+      - name: Build image
         run: |
-          docker build -t $IMAGE_NAME:latest .
-          echo $DOCKERHUB_TOKEN | docker login -u $DOCKER_USER --password-stdin
+          docker build -t $IMAGE_NAME:latest$(date +%s) .
+      - name: Docker Login
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKERHUB_PWD
+      - name: Push Image
+        run: |
           docker push $IMAGE_NAME:latest
