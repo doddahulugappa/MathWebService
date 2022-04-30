@@ -24,6 +24,9 @@
 
 ### Install libraries 
  - `pip install -r requirements.txt`
+ 
+### Create database and tables
+ - `python app\database\dboperation.py`
 
 ### Execute tests
  - execute `pytest` to test the API
